@@ -19,11 +19,11 @@ class Setting(models.Model):
     @classmethod
     def dcron_classcron(cls):
         s = cls.get_active()
-        if self.day == -1:
+        if s.day == -1:
             d = '*'
         else:
             d = self.day
-        return '0 {0} * * {1}'.format(self.hour, d)
+        return '0 {0} * * {1}'.format(s.hour, d)
 
     @classmethod
     def dcron_run(cls):
