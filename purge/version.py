@@ -20,7 +20,7 @@ def get_version():
         pass
     for g in git_options:
         gitver, code = cmd_out('{0} describe --tags --always'.format(g))
-        gitver = gitver.replace('v', '').split('-g')[0].replace('-', '.dev')
+        gitver = gitver.replace('v', '').split('-g')[0].replace('-', '.')
         if ' ' in gitver: gitver = '0'
         else: break
     if not gitver or 'fatal' in gitver or '\n' in gitver:
