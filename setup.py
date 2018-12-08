@@ -19,7 +19,7 @@ setup(
     url='https://github.com/gregschmit/django-purge',
     author='Gregory N. Schmit',
     author_email='gschmi4@uic.edu',
-    license
+    license='MIT',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',

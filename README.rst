@@ -1,12 +1,14 @@
 Purge
 #####
 
-Purge is a Django app for regularly purging old database entries. You can run the jobs using the app `django-dcron` or you can periodically call the management command `purge`.
+Purge is a Django app for regularly purging old database entries.
 
 How to Use
 ##########
 
 Include :code:`purge` in your :code:`INSTALLED_APPS`. Then configure the settings (some defaults are provided) and create your database purgers.
+
+Then, either install and configure :code:`django-dcron` (for daily cleanup) or setup a system cronjob to run the management command :code:`purge` periodically.
 
 Contributing
 ############
