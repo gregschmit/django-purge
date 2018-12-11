@@ -37,7 +37,7 @@ class Settings(models.Model):
         call_command('purge')
 
     def save(self, *args, **kwargs):
-        ss = Setting.objects.filter(active=True)
+        ss = type(self).objects.filter(active=True)
         if self.active:
             # deactivate all others
             for s in ss:
@@ -55,7 +55,7 @@ class Settings(models.Model):
         ss = cls.objects.filter(active=True)
         if ss:
             return ss[0]
-        s = Setting()
+        s = cls()
         s.name = "Default"
         s.save()
         return s
