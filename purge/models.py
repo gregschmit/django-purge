@@ -5,7 +5,7 @@ from django.core.management import call_command
 from django.utils import timezone
 
 
-class Setting(models.Model):
+class Settings(models.Model):
     """
     This model represents the purger settings. It is important to ensure that
     all fields have sensible defaults.
@@ -17,6 +17,10 @@ class Setting(models.Model):
     hour = models.IntegerField(default=0, choices=hour_choices)
     day_choices = [(i-1, str(x)) for i, x in enumerate(['*', 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'])]
     day = models.IntegerField(default=-1, choices=day_choices)
+
+    class Meta:
+        verbose_name = "Settings"
+        verbose_name_plural = verbose_name
 
     @classmethod
     def dcron_class_pattern(cls):

@@ -9,7 +9,7 @@ class CustomContentTypeChoiceField(ModelChoiceField):
         return "{0} :: {1}".format(obj.app_label, obj)
 
 
-class SettingAdmin(admin.ModelAdmin):
+class SettingsAdmin(admin.ModelAdmin):
     list_filter = ('active',)
     list_display = ('name',) + list_filter + ('hour', 'day')
     search_fields = list_display
@@ -39,5 +39,5 @@ class DatabasePurgerAdmin(admin.ModelAdmin):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-admin.site.register(models.Setting, SettingAdmin)
+admin.site.register(models.Settings, SettingsAdmin)
 admin.site.register(models.DatabasePurger, DatabasePurgerAdmin)
