@@ -73,6 +73,9 @@ class DatabasePurger(models.Model):
     age_in_days = models.PositiveIntegerField(default=30)
     max_records = models.PositiveIntegerField(default=1000, help_text="Number of records to keep if `delete_by_quantity` is selected")
 
+    class Meta:
+        verbose_name = 'Database Purger'
+
     def __str__(self):
         return "{0} :: {1}".format(self.table.app_label, self.table)
 
