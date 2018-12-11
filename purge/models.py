@@ -83,7 +83,7 @@ class DatabasePurger(models.Model):
         if not self.active: return
         m = self.table.model_class()
         d = timezone.now() - timedelta(days=self.age_in_days)
-        datetime_filter = {self.datetime_field + '__lt', d}
+        datetime_filter = {self.datetime_field + '__lt': d}
         if self.delete_by_age:
             m.objects.filter(**datetime_filter).delete()
         if self.delete_by_quantity:
