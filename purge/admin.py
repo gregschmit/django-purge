@@ -19,7 +19,7 @@ class SettingsAdmin(admin.ModelAdmin):
             )
 
     def get_queryset(self, request):
-        models.Setting.get_active()
+        models.Settings.get_active()
         query = super().get_queryset(request)
         return query
 
