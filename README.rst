@@ -3,6 +3,16 @@ Purge
 
 .. inclusion-marker-do-not-remove
 
+.. image:: https://readthedocs.org/projects/django-purge/badge/?version=latest
+    :target: https://django-purge.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+Documentation: https://django-purge.readthedocs.io
+
+Source: https://github.com/gregschmit/django-purge
+
+PyPI: https://pypi.org/project/django-dcron/
+
 Purge is a reusable Django app for regularly purging old database entries, like logs.
 
 **The Problem**: Tables/models like sessions and logs can grow without limit.
