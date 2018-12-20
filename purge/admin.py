@@ -1,5 +1,15 @@
 from django.contrib import admin
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.contrib.contenttypes.models import ContentType
+from django.forms import ModelMultipleChoiceField
 from . import models
+
+
+class CustomModelMCF(ModelMultipleChoiceField):
+    widget = FilteredSelectMultiple("Models", False)
+
+    def label_from_instance(self, obj):
+        return "{0} :: {1}".format(obj.app_label, obj)
 
 
 class DatabasePurgerAdmin(admin.ModelAdmin):
@@ -11,7 +21,11 @@ class DatabasePurgerAdmin(admin.ModelAdmin):
             ('Schedule', { 'fields': ('day', 'time')}),
             ('Criteria', { 'fields': ('delete_by_age', 'delete_by_quantity', 'datetime_field', 'age_in_days', 'max_records')}),
             )
-    filter_horizontal = ('tables',)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'tables':
+            return CustomModelMCF(ContentType.objects.all(), **kwargs)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 admin.site.register(models.DatabasePurger, DatabasePurgerAdmin)
