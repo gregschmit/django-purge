@@ -49,7 +49,7 @@ class DatabasePurger(models.Model):
         if not self.enabled: return
         model_list = [x.model_class() for x in self.tables]
         d = timezone.now() - datetime.timedelta(days=self.age_in_days)
-        datetime_filter = {self.datetime_field + '__lt', d}
+        datetime_filter = {self.datetime_field + '__lt': d}
         if self.delete_by_age:
             for m in model_list:
                 m.objects.filter(**datetime_filter).delete()
