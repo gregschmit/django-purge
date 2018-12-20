@@ -11,7 +11,7 @@ Documentation: https://django-purge.readthedocs.io
 
 Source: https://github.com/gregschmit/django-purge
 
-PyPI: https://pypi.org/project/django-dcron/
+PyPI: https://pypi.org/project/django-purge/
 
 Purge is a reusable Django app for regularly purging old database entries, like logs.
 
