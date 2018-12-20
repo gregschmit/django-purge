@@ -1,14 +1,25 @@
 Purge
 #####
 
-Purge is a Django app for regularly purging old database entries.
+.. inclusion-marker-do-not-remove
+
+Purge is a reusable Django app for regularly purging old database entries, like logs.
+
+**The Problem**: Tables/models like sessions and logs can grow without limit.
+
+**The Solution**: This app allows you to schedule database purging of old
+records.
 
 How to Use
 ##########
 
-Include :code:`purge` in your :code:`INSTALLED_APPS`. Then configure the settings (some defaults are provided) and create your database purgers.
+.. code-block:: shell
 
-Then, either install and configure :code:`django-dcron` (for daily cleanup) or setup a system cronjob to run the management command :code:`purge` periodically.
+    $ pip install django-purge
+
+Include :code:`purge` in your :code:`INSTALLED_APPS`. Then, create your database purgers in the admin interface.
+
+Then, either install and configure :code:`django-dcron` or setup a system cronjob to run the management command :code:`purge` periodically.
 
 Contributing
 ############
@@ -22,7 +33,7 @@ To collaborators: don't push using the :code:`--force` option.
 Dev Quickstart
 ##############
 
-First clone, the repository into a location of your choosing:
+Purge comes with a `settings.py` file, technically making it a Django project as well as a Django app. First clone, the repository into a location of your choosing:
 
 .. code-block:: shell
 
@@ -35,6 +46,8 @@ Then you can go into the :code:`django-purge` directory and do the initial migra
     $ cd django-purge
     $ python manage.py makemigrations purge
     $ python manage.py migrate
+    $ python manage.py createsuperuser
+    ...
     $ python manage.py runserver
 
-Then you can see the models at 127.0.0.1:8000/admin.
+Then you can see the models at http://127.0.0.1:8000/admin.

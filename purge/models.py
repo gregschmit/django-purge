@@ -1,96 +1,65 @@
-from datetime import datetime, timedelta
+import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.core.management import call_command
 from django.utils import timezone
 
 
-class Settings(models.Model):
-    """
-    This model represents the purger settings. It is important to ensure that
-    all fields have sensible defaults.
-    """
-    name = models.CharField(max_length=255, blank=False)
-    active = models.BooleanField(default=True)
-    enabled = models.BooleanField(default=True)
-    hour_choices = [(x, str(x)) for x in range(24)]
-    hour = models.IntegerField(default=0, choices=hour_choices)
-    day_choices = [(i-1, str(x)) for i, x in enumerate(['*', 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'])]
-    day = models.IntegerField(default=-1, choices=day_choices)
-
-    class Meta:
-        verbose_name = "Settings"
-        verbose_name_plural = verbose_name
-
-    @classmethod
-    def dcron_class_pattern(cls):
-        s = cls.get_active()
-        if not s.enabled: return ''
-        if s.day == -1:
-            d = '*'
-        else:
-            d = self.day
-        return '0 {0} * * {1}'.format(s.hour, d)
-
-    @classmethod
-    def dcron_class_run(cls):
-        call_command('purge')
-
-    def save(self, *args, **kwargs):
-        ss = type(self).objects.filter(active=True)
-        if self.active:
-            # deactivate all others
-            for s in ss:
-                if not s == self:
-                    s.active = False
-                    s.save()
-        else:
-            # ensure one other one is active, otherwise, activate this one
-            if not ss:
-                self.active = True
-        return super().save(*args, **kwargs)
-
-    @classmethod
-    def get_active(cls):
-        ss = cls.objects.filter(active=True)
-        if ss:
-            return ss[0]
-        s = cls()
-        s.name = "Default"
-        s.save()
-        return s
-
-
 class DatabasePurger(models.Model):
-    """
-    This model represents another table in the database and a criteria for purging.
-    """
-    active = models.BooleanField(default=True)
-    table = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    """Represents a purging action on a set of database tables."""
+    name = models.CharField(max_length=255)
+    enabled = models.BooleanField(default=True)
+    tables = models.ManyToManyField(ContentType)
     delete_by_age = models.BooleanField(default=True, help_text="Delete if entry is older than specified age")
     delete_by_quantity = models.BooleanField(default=False, help_text="Delete all except the youngest `max_records` entries")
-    datetime_field = models.CharField(max_length=255, default='created')
-    age_in_days = models.PositiveIntegerField(default=30)
+    datetime_field = models.CharField(max_length=255, default='created', help_text="Field used to determine the age of a record")
+    age_in_days = models.PositiveIntegerField(default=30, help_text="If `delete_by_age` is selected, delete records older than this age")
     max_records = models.PositiveIntegerField(default=1000, help_text="Number of records to keep if `delete_by_quantity` is selected")
+    day_choices = [(i-1, str(x)) for i, x in enumerate(['*', 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'])]
+    day = models.IntegerField(default=-1, choices=day_choices)
+    time = models.TimeField(default=datetime.time(3, 0))
 
     class Meta:
         verbose_name = 'Database Purger'
 
+    def dcron_pattern(self):
+        """Return a cron pattern based on the `day` and `time` properties."""
+        if self.day == -1:
+            d = '*'
+        else:
+            d = self.day
+        return '{0} {1} * * {2}'.format(self.time.minute, self.time.hour, d)
+
+    @property
+    def selected_tables(self):
+        """Getter to display the selected tables in the admin UI."""
+        return '\n'.join(self.tables)
+
+    def dcron_run(self):
+        """run == purge for a model instance"""
+        self.purge()
+
     def __str__(self):
-        return "{0} :: {1}".format(self.table.app_label, self.table)
+        return self.name
 
     def purge(self):
-        if not self.active: return
-        m = self.table.model_class()
-        d = timezone.now() - timedelta(days=self.age_in_days)
+        """
+        If this purger is enabled, purge the selected tables by age/quantity
+        depending on the configuration.
+        """
+        if not self.enabled: return
+        model_list = [x.model_class() for x in self.tables]
+        d = timezone.now() - datetime.timedelta(days=self.age_in_days)
         datetime_filter = {self.datetime_field + '__lt', d}
         if self.delete_by_age:
-            m.objects.filter(**datetime_filter).delete()
+            for m in model_list:
+                m.objects.filter(**datetime_filter).delete()
         if self.delete_by_quantity:
-            x = m.objects.order_by('-' + self.datetime_field)[self.max_records:]
-            m.objects.filter(pk__in=x).delete()
+            for m in model_list:
+                x = m.objects.order_by('-' + self.datetime_field)[self.max_records:]
+                m.objects.filter(pk__in=x).delete()
 
     @classmethod
     def purge_all(cls):
-        for x in cls.objects.filter(active=True):
+        """Helper for running purge on all of the `DatabasePurger`'s."""
+        for x in cls.objects.filter(enabled=True):
             x.purge()

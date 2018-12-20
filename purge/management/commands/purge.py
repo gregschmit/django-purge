@@ -3,7 +3,8 @@ from django.db import transaction
 from purge import models
 
 class Command(BaseCommand):
-    help = 'This command purges the database of any entries that match the criteria.'
+    help = "Run all database purgers"
 
     def handle(self, *args, **options):
+        """Run all database purgers"""
         models.DatabasePurger.purge_all()
