@@ -14,20 +14,9 @@ class DatabasePurger(models.Model):
     datetime_field = models.CharField(max_length=255, default='created', help_text="Field used to determine the age of a record")
     age_in_days = models.PositiveIntegerField(default=30, help_text="If `delete_by_age` is selected, delete records older than this age")
     max_records = models.PositiveIntegerField(default=1000, help_text="Number of records to keep if `delete_by_quantity` is selected")
-    day_choices = [(i-1, str(x)) for i, x in enumerate(['*', 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'])]
-    day = models.IntegerField(default=-1, choices=day_choices)
-    time = models.TimeField(default=datetime.time(3, 0))
 
     class Meta:
         verbose_name = 'Database Purger'
-
-    def dcron_pattern(self):
-        """Return a cron pattern based on the `day` and `time` properties."""
-        if self.day == -1:
-            d = '*'
-        else:
-            d = self.day
-        return '{0} {1} * * {2}'.format(self.time.minute, self.time.hour, d)
 
     @property
     def selected_tables(self):
