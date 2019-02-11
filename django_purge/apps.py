@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class CustomConfig(AppConfig):
-    name = 'purge'
+    name = 'django_purge'
     verbose_name = "Purge"

@@ -27,9 +27,9 @@ How to Use
 
     $ pip install django-purge
 
-Include :code:`purge` in your :code:`INSTALLED_APPS`. Then, create your database purgers in the admin interface.
+Include :code:`django_purge` in your :code:`INSTALLED_APPS`. Then, create your database purgers in the admin interface.
 
-Then, either periodically call the :code:`purge` management command (e.g., via a system cronjob), or install and configure :code:`django-cron` (remember to add :code:`purge.cron` to your :code:`CRON_CLASSES` in your :code:`settings.py`). The builtin :code:`CronJob` class is set to run every 4 hours.
+Then, either periodically call the :code:`purge` management command (e.g., via a system cronjob), or install and configure :code:`django-cron` (add :code:`django_purge.cron` to your :code:`CRON_CLASSES` in your :code:`settings.py`). The builtin :code:`CronJob` class is set to run every 4 hours.
 
 Contributing
 ############
@@ -54,7 +54,7 @@ Then you can go into the :code:`django-purge` directory and do the initial migra
 .. code-block:: shell
 
     $ cd django-purge
-    $ python manage.py makemigrations purge
+    $ python manage.py makemigrations django_purge
     $ python manage.py migrate
     $ python manage.py createsuperuser
     ...

@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 """
-A simple `manage.py` for testing and running `purge` standalone.
+A simple `manage.py` for testing and running `django_purge` standalone.
 """
 
 import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "purge.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_purge.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

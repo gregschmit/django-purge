@@ -40,7 +40,7 @@ SECRET_KEY = 'not-a-very-good-secret'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
-    'purge',
+    'django_purge',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ROOT_URLCONF = 'purge.urls'
+ROOT_URLCONF = 'django_purge.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,7 +73,7 @@ TEMPLATES = [
         },
     },
 ]
-WSGI_APPLICATION = 'purge.wsgi.application'
+WSGI_APPLICATION = 'django_purge.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -115,5 +115,5 @@ except NameError:
     pass
 
 CRON_CLASSES = [
-    'purge.cron.CronJob',
+    'django_purge.cron.CronJob',
 ]

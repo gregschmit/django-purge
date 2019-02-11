@@ -1,4 +1,4 @@
 Models
 ======
-.. automodule:: purge.models
+.. automodule:: django_purge.models
     :members:

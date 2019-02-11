@@ -1,20 +1,20 @@
 import os
 from setuptools import find_packages, setup
-from purge import version
+from django_purge import version
 
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 # stamp the package prior to installation
-version.stamp_directory(os.path.join(os.getcwd(), 'purge'))
+version.stamp_directory(os.path.join(os.getcwd(), 'django_purge'))
 
 setup(
     name='django-purge',
     version=version.get_version(),
     packages=find_packages(),
     include_package_data=True,
-    package_data={'purge': ['VERSION_STAMP']},
+    package_data={'django_purge': ['VERSION_STAMP']},
     description='A reusable Django app for purging database records (e.g., logs).',
     long_description="A reusable Django app for purging database records, like logs. Automatic scheduling is supported with `django-cron`, or you can periodically run the management command `purge`.",
     install_requires=['Django>=2',],
