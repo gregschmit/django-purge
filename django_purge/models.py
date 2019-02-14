@@ -21,7 +21,7 @@ class DatabasePurger(models.Model):
     @property
     def selected_tables(self):
         """Getter to display the selected tables in the admin UI."""
-        return '\n'.join(self.tables)
+        return '\n'.join([str(x) for x in self.tables.all()])
 
     def dcron_run(self):
         """run == purge for a model instance"""
