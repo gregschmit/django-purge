@@ -1,10 +1,11 @@
 from django.core.management import call_command
 from django_cron import CronJobBase, Schedule
 from .models import DatabasePurger
+from .settings import get_setting
 
 
 class CronJob(CronJobBase):
-    schedule = Schedule(run_every_mins=240)
+    schedule = Schedule(run_at_times=get_setting('PURGE_CRON_RUN_AT_TIMES'))
     code = 'django_purge.cron'
 
     def do(self):

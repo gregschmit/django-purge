@@ -9,3 +9,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Run all database purgers"""
         models.DatabasePurger.purge_all()
+        models.FilePurger.purge_all()

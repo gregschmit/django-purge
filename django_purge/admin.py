@@ -27,4 +27,15 @@ class DatabasePurgerAdmin(admin.ModelAdmin):
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
+class FilePurgerAdmin(admin.ModelAdmin):
+    list_filter = ('enabled',)
+    list_display = ('name',) + list_filter + ('file_pattern', 'directory', 'recursive_search', 'delete_by_filename', 'filename_date_year_first', 'filename_date_day_first', 'delete_by_atime', 'delete_by_mtime', 'delete_by_ctime', 'age_in_days')
+    search_fields = list_display
+    fieldsets = (
+        (None, { 'fields': ('name', 'enabled', 'file_pattern', 'directory', 'recursive_search')}),
+        ('Criteria', { 'fields': ('delete_by_filename', 'filename_date_year_first', 'filename_date_day_first', 'delete_by_atime', 'delete_by_mtime', 'delete_by_ctime', 'age_in_days')}),
+    )
+
+
 admin.site.register(models.DatabasePurger, DatabasePurgerAdmin)
+admin.site.register(models.FilePurger, FilePurgerAdmin)

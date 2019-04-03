@@ -101,3 +101,5 @@ APPEND_SLASH = True
 CRON_CLASSES = [
     'django_purge.cron.CronJob',
 ]
+
+PURGE_CRON_RUN_AT_TIMES = ['2:00']
