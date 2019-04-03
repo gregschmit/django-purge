@@ -17,7 +17,7 @@ setup(
     package_data={'django_purge': ['VERSION_STAMP']},
     description='A reusable Django app for purging database records (e.g., logs).',
     long_description="A reusable Django app for purging old database records and files. Automatic scheduling is supported with `django-cron`, or you can periodically run the management command `purge`.",
-    install_requires=['Django>=2', 'dateutil'],
+    install_requires=['Django>=2', 'python-dateutil'],
     url='https://github.com/gregschmit/django-purge',
     author='Gregory N. Schmit',
     author_email='gschmi4@uic.edu',
