@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.contenttypes.models import ContentType
 from django.forms import ModelMultipleChoiceField
+from django.utils.html import format_html
 from . import models
 
 
@@ -14,12 +15,15 @@ class CustomModelMCF(ModelMultipleChoiceField):
 
 class DatabasePurgerAdmin(admin.ModelAdmin):
     list_filter = ('enabled',)
-    list_display = ('name',) + list_filter + ('selected_tables', 'delete_by_age', 'delete_by_quantity', 'datetime_field', 'age_in_days', 'max_records')
+    list_display = ('name',) + list_filter + ('_selected_tables', 'delete_by_age', 'delete_by_quantity', 'datetime_field', 'age_in_days', 'max_records')
     search_fields = list_display
     fieldsets = (
         (None, { 'fields': ('name', 'enabled', 'tables')}),
         ('Criteria', { 'fields': ('delete_by_age', 'delete_by_quantity', 'datetime_field', 'age_in_days', 'max_records')}),
     )
+
+    def _selected_tables(self, obj):
+        return format_html(obj.selected_tables)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == 'tables':

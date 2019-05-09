@@ -20,13 +20,10 @@ class DatabasePurger(models.Model):
     age_in_days = models.PositiveIntegerField(default=30, help_text="If `delete_by_age` is selected, delete records older than this age")
     max_records = models.PositiveIntegerField(default=1000, help_text="Number of records to keep if `delete_by_quantity` is selected")
 
-    class Meta:
-        verbose_name = 'Database Purger'
-
     @property
     def selected_tables(self):
         """Getter to display the selected tables in the admin UI."""
-        return '\n'.join([str(x) for x in self.tables.all()])
+        return '<br>'.join([str(x) for x in self.tables.all()])
 
     def __str__(self):
         return self.name
@@ -72,9 +69,6 @@ class FilePurger(models.Model):
     delete_by_mtime = models.BooleanField(default=True, help_text="Delete if modification time is too old")
     delete_by_ctime = models.BooleanField(default=False, help_text="Delete if (meta) change time is too old")
     age_in_days = models.PositiveIntegerField(default=30, help_text="Delete records older than this age")
-
-    class Meta:
-        verbose_name = 'File Purger'
 
     def __str__(self):
         return self.name
