@@ -91,7 +91,10 @@ class FilePurger(models.Model):
         """
         if not directory: directory = self.directory
         subdirs = []
-        listing = os.listdir(directory)
+        try:
+            listing = os.listdir(directory)
+        except FileNotFoundError:
+            listing = []
         for f in listing:
             fqf = os.path.join(directory, f)
             s = os.stat(fqf, follow_symlinks=False)
