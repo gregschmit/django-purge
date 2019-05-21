@@ -59,7 +59,7 @@ class DatabasePurger(models.Model):
 class FilePurger(models.Model):
     name = models.CharField(max_length=255)
     enabled = models.BooleanField(default=True)
-    file_pattern = models.CharField(max_length=255, help_text="Pattern of files to inspect using POSIX shell expansion (e.g., 'datafile-.*\\\.txt')")
+    file_pattern = models.CharField(max_length=255, help_text="Pattern of files to inspect using POSIX shell expansion (e.g., 'datafile-.*\.txt')")
     directory = models.CharField(max_length=255, blank=True)
     recursive_search = models.BooleanField(default=False, help_text="Search directories recursively")
     delete_by_filename = models.BooleanField(default=True, blank=True, help_text="Delete by timestamp in filename")
