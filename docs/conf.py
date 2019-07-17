@@ -19,9 +19,9 @@ import os
 import sys
 import django
 sys.path.insert(0, os.path.abspath('..'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'django_purge.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'purge.settings'
 django.setup()
-from django_purge import version as ver
+from purge import version as ver
 
 
 # -- Project information -----------------------------------------------------

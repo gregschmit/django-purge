@@ -29,12 +29,12 @@ How to Use
 
     $ pip install django-purge
 
-Include :code:`django_purge` in your :code:`INSTALLED_APPS`. Then, create your
+Include :code:`purge` in your :code:`INSTALLED_APPS`. Then, create your
 database purgers or file purgers in the admin interface.
 
 Then, either periodically call the :code:`purge` management command (e.g., via a
 system cronjob), or install and configure :code:`django-cron` (add
-:code:`django_purge.cron` to your :code:`CRON_CLASSES` in your
+:code:`purge.cron` to your :code:`CRON_CLASSES` in your
 :code:`settings.py`). The builtin :code:`CronJob` class is set to run every 4
 hours. You can change this by altering your :code:`settings.py` and adding
 :code:`PURGE_CRON_RUN_AT_TIMES` to an array of times you want to run the job at

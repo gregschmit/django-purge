@@ -1,6 +1,5 @@
-from django.core.management.base import BaseCommand, CommandError
-from django.db import transaction
-from django_purge import models
+from django.core.management.base import BaseCommand
+from purge import models
 
 
 class Command(BaseCommand):

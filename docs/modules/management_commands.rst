@@ -1,4 +1,4 @@
 Management Commands
 ===================
-.. automodule:: django_purge.management.commands.purge
+.. automodule:: purge.management.commands.purge
     :members:

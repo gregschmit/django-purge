@@ -104,16 +104,16 @@ class FilePurger(models.Model):
             if not fnmatchcase(f, self.file_pattern):
                 continue
             if self.delete_by_filename and self.filename_is_older_than(f, dt):
-                print("django_purge: removing {} because of filename".format(fqf), file=sys.stderr)
+                print("purge: removing {} because of filename".format(fqf), file=sys.stderr)
                 os.remove(fqf)
             elif self.delete_by_atime and (datetime.fromtimestamp(s.st_atime) < dt):
-                print("django_purge: removing {} because of atime".format(fqf), file=sys.stderr)
+                print("purge: removing {} because of atime".format(fqf), file=sys.stderr)
                 os.remove(fqf)
             elif self.delete_by_mtime and (datetime.fromtimestamp(s.st_mtime) < dt):
-                print("django_purge: removing {} because of mtime".format(fqf), file=sys.stderr)
+                print("purge: removing {} because of mtime".format(fqf), file=sys.stderr)
                 os.remove(fqf)
             elif self.delete_by_ctime and (datetime.fromtimestamp(s.st_ctime) < dt):
-                print("django_purge: removing {} because of ctime".format(fqf), file=sys.stderr)
+                print("purge: removing {} because of ctime".format(fqf), file=sys.stderr)
                 os.remove(fqf)
         if self.recursive_search:
             for sd in subdirs:
