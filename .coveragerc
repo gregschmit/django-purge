@@ -1,2 +1,4 @@
 [run]
-source = purge
+source =
+  purge.models
+  purge.admin
