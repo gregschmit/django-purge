@@ -3,9 +3,21 @@ Purge
 
 .. inclusion-marker-do-not-remove
 
+.. image:: https://travis-ci.org/gregschmit/django-purge.svg?branch=master
+    :alt: Build Status
+    :target: https://travis-ci.org/gregschmit/django-purge
+
+.. image:: https://img.shields.io/pypi/v/django-purge
+    :alt: PyPI
+    :target: https://pypi.org/project/django-purge/
+
+.. image:: https://coveralls.io/repos/github/gregschmit/django-purge/badge.svg?branch=master
+    :alt: Coverage Report
+    :target: https://coveralls.io/github/gregschmit/django-purge?branch=master
+
 .. image:: https://readthedocs.org/projects/django-purge/badge/?version=latest
-    :target: https://django-purge.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+    :target: https://django-purge.readthedocs.io/en/latest/?badge=latest
 
 Documentation: https://django-purge.readthedocs.io
 
