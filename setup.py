@@ -1,22 +1,21 @@
 import os
 from setuptools import find_packages, setup
-from purge import version
+import purge
 
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-# stamp the package prior to installation
-version.stamp_directory('./purge')
+# get README
+with open('README.rst') as f:
+    long_description = f.read()
 
 setup(
     name='django-purge',
-    version=version.get_version(),
+    version=purge.__version__,
     packages=find_packages(),
-    include_package_data=True,
-    package_data={'purge': ['VERSION_STAMP']},
     description='A reusable Django app for purging database records (e.g., logs).',
-    long_description="A reusable Django app for purging old database records and files. Automatic scheduling is supported with `django-cron`, or you can periodically run the management command `purge`.",
+    long_description=long_description,
     install_requires=['Django>=2', 'python-dateutil'],
     url='https://github.com/gregschmit/django-purge',
     author='Gregory N. Schmit',
@@ -35,6 +34,3 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
 )
-
-# un-stamp the package after installation
-version.unstamp_directory('./purge')
