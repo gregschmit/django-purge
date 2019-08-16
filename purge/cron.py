@@ -1,6 +1,5 @@
 from django.core.management import call_command
 from django_cron import CronJobBase, Schedule
-from .models import DatabasePurger
 from .settings import get_setting
 
 

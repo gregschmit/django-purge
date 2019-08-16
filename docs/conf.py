@@ -21,17 +21,17 @@ import django
 sys.path.insert(0, os.path.abspath('..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'purge.settings'
 django.setup()
-from purge import version as ver
+import purge
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'django-purge'
-copyright = '2018, Gregory N. Schmit'
+copyright = '2019, Gregory N. Schmit'
 author = 'Gregory N. Schmit'
 
 # The short X.Y version
-version = ver.get_version().split('+')[0]
+version = purge.__version__
 # The full version, including alpha/beta/rc tags
 release = version
 
