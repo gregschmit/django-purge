@@ -31,7 +31,7 @@ logs.
 **The Problem**: Tables/models like sessions and logs can grow without limit.
 
 **The Solution**: This app allows you to schedule database purging of old
-records. You can also make FilePurgers which can purge old files based on
+records. You can also make ``FilePurgers`` which can purge old files based on
 datestamps in the filename or timestamps in the meta-data (atime/mtime/ctime).
 
 How to Use
@@ -41,40 +41,39 @@ How to Use
 
     $ pip install django-purge
 
-Include :code:`purge` in your :code:`INSTALLED_APPS`. Then, create your
-database purgers or file purgers in the admin interface.
+Include ``purge`` in your ``INSTALLED_APPS``. Then, create your database
+purgers or file purgers in the admin interface.
 
-Then, either periodically call the :code:`purge` management command (e.g., via a
-system cronjob), or install and configure :code:`django-cron` (add
-:code:`purge.cron` to your :code:`CRON_CLASSES` in your
-:code:`settings.py`). The builtin :code:`CronJob` class is set to run every 4
-hours. You can change this by altering your :code:`settings.py` and adding
-:code:`PURGE_CRON_RUN_AT_TIMES` to an array of times you want to run the job at
-(e.g., :code:`['1:00']` to run at 1am).
+Then, either periodically call the ``purge`` management command (e.g., via a
+system cronjob), or install and configure ``django-cron`` (add ``purge.cron``
+to your ``CRON_CLASSES`` in your ``settings.py``). The builtin ``CronJob``
+class is set to run every 4 hours. You can change this by altering your
+``settings.py`` and adding ``PURGE_CRON_RUN_AT_TIMES`` to an array of times you
+want to run the job at (e.g., ``['1:00']`` to run at 1am).
 
 Contributing
 ############
 
-Email gschmi4@uic.edu if you want to contribute. You must only contribute code
+Create a pull request if you want to contribute. You must only contribute code
 that you have authored or otherwise hold the copyright to, and you must
 make any contributions to this project available under the MIT license.
 
-To collaborators: don't push using the :code:`--force` option.
+To collaborators: don't push using the ``--force`` option.
 
 Dev Quickstart
 ##############
 
-Purge comes with a `settings.py` file, technically making it a Django project as
-well as a Django app. First clone, the repository into a location of your
+Purge comes with a ``settings.py`` file, technically making it a Django project
+as well as a Django app. First clone, the repository into a location of your
 choosing:
 
 .. code-block:: shell
 
     $ git clone https://github.com/gregschmit/django-purge
 
-Then you can go into the :code:`django-purge` directory and do the initial
-migrations and run the server (you may need to type :code:`python3` rather than
-:code:`python`):
+Then you can go into the ``django-purge`` directory and do the initial
+migrations and run the server (you may need to type ``python3`` rather than
+``python``):
 
 .. code-block:: shell
 
