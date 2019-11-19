@@ -3,6 +3,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.contenttypes.models import ContentType
 from django.forms import ModelMultipleChoiceField
 from django.utils.html import format_html
+
 from . import models
 
 
